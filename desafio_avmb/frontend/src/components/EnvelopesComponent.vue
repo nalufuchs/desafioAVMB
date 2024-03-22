@@ -6,31 +6,8 @@ const newEnvelope = ref('')
 const envelopes = ref([])
 
 
-// // //PROBLEMA NO RETORNO (não acha a página, mas acha o id certinho e até cria a  página com o id)
-// async function consultar_status_envelope(idEnvelope) {
-//   const response = await fetch(`http://localhost:3000/api/consultar-status-envelope/${idEnvelope}`)
-//   const data = await response.json();
-//   // envelope.value = envelope.value
-// }
 
-// async function consultar_envelope(idEnvelope) {
-//   const response = await consultar_status_envelope(idEnvelope)
-//   return response
-
-// };
-
-
-async function consultar_status(id) {
-  const response = await fetch(`http://localhost:3000/api/consultar-status-envelope/${id}`)
-  const data = await response.json();
-}
-
-// async function consultar_envelope(idEnvelope) {
-//   const response = await consultar_status_envelope(idEnvelope)
-//   return response
-
-// };
-
+// Consultar todos os envelopes
 onMounted(async () => {
   await fetchEnvelopes();
 })
