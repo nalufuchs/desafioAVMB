@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Asten Assinatura API
+  description: Documentação da API para integração com Asten Assinatura
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /criar-envelope:
+    post:
+      summary: Criação de envelope
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarEnvelopeView'  
+      responses:
+        '201':
+          description: Envelope criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app'
+        '500':
+          description: Erro ao criar o envelope
+
+  /consultar-envelopes:
+    get:
+      summary: Obter todos os envelopes de maneira resumida
+      responses:
+        '200':
+          description: Lista de envelopes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoView'
+        '500':
+          description: Erro ao obter envelopes
+
+  /consultar-status-envelope/:idEnvelope:
+    get:
+      summary: Consultar o status de um envelope
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Status do envelope
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+        '500':
+          description: Erro ao consultar o status do envelope
+
+components:
+  schemas:
+    EnvelopeInput:
+      type: object
+      properties:
+        descricao:
+          type: string
+          description: Descrição do envelope
+        documento:
+          type: string
+          description: Documento em base64
+        emailSignatario:
+          type: string
+          format: email
+          description: Email do signatário
+
+    Envelope:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do repositório
+        envelopeId:
+          type: string
+          description: ID do envelope na Asten Assinatura
+        status:
+          type: string
+          description: Status do envelope
